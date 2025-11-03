@@ -57,15 +57,19 @@ class Record:
          self.phones.append(Phone(value))
 
     def remove_phone(self, value):
-         self.phones.remove(value)
+        phone = self.find_phone(value) 
+        if phone is None:
+            return False
+        self.phones.remove(phone)
+        return True
 
     def edit_phone(self, old_value, new_value):
-        for i, p in enumerate(self.phones):
-                cur = p.value
-                if cur == old_value:
-                    self.phones[i] = Phone(new_value)
-                    return True
-        return False
+        phone = self.find_phone(old_value)
+        if phone is None:
+            return False
+        phone.value = new_value
+        return True
+
     
     def find_phone(self, value):
         for phone in self.phones:
